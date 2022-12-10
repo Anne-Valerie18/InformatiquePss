@@ -1,0 +1,65 @@
+---
+title: "Modele de regression lineaire"
+author: "Anne-Valerie Jeudy"
+date: "2022-12-10"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Donnees sur le credit bancaire
+
+```{r Credit Bancaire}
+
+donnees<-read.csv("CreditBancaire1.csv.csv")
+
+```
+
+## Creation du modele de regression lineaire
+
+```{r Creation du modele}
+model<-lm(Jours~Credit+Type,data=donnees)
+model
+summary(model)
+```
+
+## Affichage des coefficients estimes, ceux de student et les probabilites
+
+```{r Coefficient,Coefficient de sudent et les probabilites}
+modele <- summary(lm(Jours~Credit+Type, data=donnees))
+ Coef.Est<-modele$coefficients[, 1]
+ T.Values<-modele$coefficients[, 3]
+ P.Values<-modele$coefficients[, 4]
+data1<-data.frame(Coef.Est,T.Values,P.Values) 
+data1
+```
+
+## Mise en valeur des coefficients 
+```{r Student }
+data2<-data.frame(Coef.Est,T.Values)
+data2
+
+```
+
+## Representation graphique
+
+```{r pressure, echo=FALSE}
+plot(Jours ~ Credit, data=donnees)
+abline(model)
+```
+
+# Creation d'une fonction generant les coefficients
+Coeff<-function(data){
+  
+  Stat0<- summary(lm(y~., data = data))
+  
+  Coef.Est<-Stat0$coefficients[, 1]
+  T.Values<-Stat0$coefficients[, 3]
+  
+  return(data.frame(Coef.Est,T.Values))
+}
+

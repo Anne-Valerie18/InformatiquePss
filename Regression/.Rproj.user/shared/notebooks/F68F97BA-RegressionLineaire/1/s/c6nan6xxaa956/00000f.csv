@@ -1,0 +1,6 @@
+"0","modele <- summary(lm(Jours~Credit+Type, data=donnees))"
+"0"," Coef.Est<-modele$coefficients[, 1]"
+"0"," T.Values<-modele$coefficients[, 3]"
+"0"," P.Values<-modele$coefficients[, 4]"
+"0","data1<-data.frame(Coef.Est,T.Values,P.Values) "
+"0","data1"
